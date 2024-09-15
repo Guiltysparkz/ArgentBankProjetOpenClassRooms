@@ -1,0 +1,5 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/ArgentBank-Backend-main/node_modules
+/ArgentBank-Frontend-main/argent-bank/node_modules

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getAccounts } from '../redux/accountsActions';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -29,48 +29,60 @@ export default function Accounts() {
     <div className="accountWrapper">
       <section className="account">
         <div className="account-content-wrapper">
-          <h3 className="account-title">
-            Argent Bank Checking (
-            {accountsData.account1.accountDetails.accountNumber})
-          </h3>
-          <p className="account-amount">
-            ${accountsData.account1.accountDetails.accountBalance}
-          </p>
-          <p className="account-amount-description">Available Balance</p>
+          <Link
+            to={`/Transactions/${accountsData.account1.accountDetails.accountNumber}`}
+          >
+            <h3 className="account-title">
+              Argent Bank Checking (
+              {accountsData.account1.accountDetails.accountNumber})
+            </h3>
+            <p className="account-amount">
+              ${accountsData.account1.accountDetails.accountBalance}
+            </p>
+            <p className="account-amount-description">Available Balance</p>
+          </Link>
         </div>
-        <div className="account-content-wrapper cta">
+        {/* <div className="account-content-wrapper cta">
           <button className="transaction-button">View transactions</button>
-        </div>
+        </div> */}
       </section>
       <section className="account">
         <div className="account-content-wrapper">
-          <h3 className="account-title">
-            Argent Bank Checking (
-            {accountsData.account2.accountDetails.accountNumber})
-          </h3>
-          <p className="account-amount">
-            ${accountsData.account2.accountDetails.accountBalance}
-          </p>
-          <p className="account-amount-description">Available Balance</p>
+          <Link
+            to={`/Transactions/${accountsData.account2.accountDetails.accountNumber}`}
+          >
+            <h3 className="account-title">
+              Argent Bank Checking (
+              {accountsData.account2.accountDetails.accountNumber})
+            </h3>
+            <p className="account-amount">
+              ${accountsData.account2.accountDetails.accountBalance}
+            </p>
+            <p className="account-amount-description">Available Balance</p>
+          </Link>
         </div>
-        <div className="account-content-wrapper cta">
+        {/* <div className="account-content-wrapper cta">
           <button className="transaction-button">View transactions</button>
-        </div>
+        </div> */}
       </section>
       <section className="account">
         <div className="account-content-wrapper">
-          <h3 className="account-title">
-            Argent Bank Checking (
-            {accountsData.account3.accountDetails.accountNumber})
-          </h3>
-          <p className="account-amount">
-            ${accountsData.account3.accountDetails.accountBalance}
-          </p>
-          <p className="account-amount-description">Available Balance</p>
+          <Link
+            to={`/Transactions/${accountsData.account3.accountDetails.accountNumber}`}
+          >
+            <h3 className="account-title">
+              Argent Bank Checking (
+              {accountsData.account3.accountDetails.accountNumber})
+            </h3>
+            <p className="account-amount">
+              ${accountsData.account3.accountDetails.accountBalance}
+            </p>
+            <p className="account-amount-description">Available Balance</p>
+          </Link>
         </div>
-        <div className="account-content-wrapper cta">
+        {/* <div className="account-content-wrapper cta">
           <button className="transaction-button">View transactions</button>
-        </div>
+        </div> */}
       </section>
     </div>
   );

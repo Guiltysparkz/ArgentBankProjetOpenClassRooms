@@ -47,7 +47,10 @@ root.render(
           <Route path="/" element={<Home />} />
           <Route path="/User" element={<ProtectedRoute element={<User />} />} />
           <Route path="/SignIn" element={<SignIn />} />
-          <Route path="/Transactions" element={<Transactions />} />
+          <Route
+            path="/Transactions/:myCurrentAccountNumber"
+            element={<Transactions />}
+          />
           <Route path="*" element={<Navigate to="/Error" />} />
           <Route path="/Error" element={<Error />} />
         </Routes>

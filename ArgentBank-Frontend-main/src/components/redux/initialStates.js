@@ -1,10 +1,14 @@
 export const initialStates = {
   auth: {
     isAuthenticated: false,
-    isLoading: true, // Initially true since we haven't checked auth yet
+    isLoading: true,
     firstName: null,
     lastName: null,
     userName: null,
   },
-  accounts: { accountsData: undefined },
+  accounts: {
+    accounts: {
+      accountsData: {}, // or [] based on your data structure
+    },
+  },
 };

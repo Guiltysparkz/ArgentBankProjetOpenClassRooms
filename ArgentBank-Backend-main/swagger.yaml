@@ -315,11 +315,17 @@ definitions:
     items:
       $ref: '#/definitions/Account'
   UpdateTransactionDetail:
-    type: object
-    properties:
-      transactionCategory:
-        type: string
-        description: transaction Category to update
-      transactionNote:
-        type: string
-        description: transaction Note to update
+  type: object
+  properties:
+    accountField:
+      type: string
+      description: 'Account field to update (account1, account2, or account3)'
+    transactionCategory:
+      type: string
+      description: transaction Category to update
+    transactionNote:
+      type: string
+      description: transaction Note to update
+    transactionId:
+      type: string
+      description: transaction ID to identify the transaction

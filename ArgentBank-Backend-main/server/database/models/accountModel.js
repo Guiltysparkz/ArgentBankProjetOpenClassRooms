@@ -37,12 +37,26 @@ const accountSchema = new mongoose.Schema(
   {
     timestamps: true,
     toObject: {
-      transform: (doc, ret, options) => {
-        ret.id = ret._id;
+      transform: function (doc, ret) {
+        // Convert _id fields to strings
+        ret.id = ret._id.toString();
         delete ret._id;
-        delete ret.__v;
-
-        //      Ensure that nested documents are not altered
+        // Ensure nested transactions and details are also transformed
+        if (ret.account1) {
+          ret.account1.accountDetails.id =
+            ret.account1.accountDetails._id.toString();
+          delete ret.account1.accountDetails._id;
+        }
+        if (ret.account2) {
+          ret.account2.accountDetails.id =
+            ret.account2.accountDetails._id.toString();
+          delete ret.account2.accountDetails._id;
+        }
+        if (ret.account3) {
+          ret.account3.accountDetails.id =
+            ret.account3.accountDetails._id.toString();
+          delete ret.account3.accountDetails._id;
+        }
         return ret;
       },
     },

@@ -1,4 +1,6 @@
+const mongoose = require('mongoose');
 const accountService = require('../services/accountService');
+const Account = require('../database/models/accountModel'); // Replace with the correct path to your Account model
 
 module.exports.createAccount = async (req, res) => {
   let response = {};
@@ -51,24 +53,35 @@ module.exports.getAccounts = async (req, res) => {
 };
 
 module.exports.updateTransactionDetail = async (req, res) => {
-  let response = {};
-
   try {
-    const userId = req.user.id;
-    const transactionData = req.body;
+    const userId = req.user.id; // Extracted from token middleware
+    const {
+      accountField,
+      transactionId,
+      transactionCategory,
+      transactionNote,
+    } = req.body;
 
-    const responseFromService = await accountService.updateTransactionDetail(
+    // Call the service to handle the update logic
+    const updatedAccount = await accountService.updateTransactionDetail({
       userId,
-      transactionData
-    );
-    response.status = 200;
-    response.message = 'Successfully updated Transaction Detail';
-    response.body = responseFromService;
-  } catch (error) {
-    console.log('Error in updateTransactionDetail - accountController.js');
-    response.status = 400;
-    response.message = error.message;
-  }
+      accountField,
+      transactionId,
+      transactionCategory,
+      transactionNote,
+    });
 
-  return res.status(response.status).send(response);
+    if (!updatedAccount) {
+      return res.status(404).json({ message: 'Account not found' });
+    }
+
+    return res
+      .status(200)
+      .json({ message: 'Transaction updated', account: updatedAccount });
+  } catch (error) {
+    console.error('Error updating transaction:', error);
+    return res
+      .status(500)
+      .json({ message: 'Server error', error: error.message });
+  }
 };

@@ -289,3 +289,116 @@ body {
     width: 200px;
   }
 }
+
+/*additional css for transactions*/
+/* Main container */
+.accountWrapper {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Header section */
+.account-header {
+  background-color: black;
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.account-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.account-header p {
+  margin: 5px 0;
+}
+
+.account-header .close-btn {
+  background-color: transparent;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  border: none;
+}
+
+/* Transactions table */
+.transactions {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.transactions table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.transactions th {
+  text-align: left;
+  padding: 10px;
+  background-color: #ddd;
+}
+
+.transactions td {
+  padding: 10px;
+  background-color: green;
+  color: white;
+  position: relative;
+}
+
+.transactions tr + tr {
+  margin-top: 10px;
+}
+
+.transaction-row {
+  background-color: green;
+  color: white;
+  margin-bottom: 10px;
+}
+
+/* Expand/collapse details */
+.expand-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.collapsed-content {
+  display: none;
+  padding: 10px;
+  background-color: #333;
+}
+
+.collapsed-content.show {
+  display: block;
+}
+
+/* Edit category and note */
+.edit-icon {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.select-category,
+.input-note {
+  display: none;
+  margin-top: 10px;
+  width: 100%;
+  padding: 5px;
+}
+
+.select-category.show,
+.input-note.show {
+  display: block;
+}

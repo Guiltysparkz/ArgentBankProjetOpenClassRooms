@@ -1,26 +1,21 @@
 import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import ArgentBankLogo from '../../assets/images/argentBankLogo.png';
 import { logout } from '../redux/authActions';
-import { store } from '../redux/store';
+import { useEffect } from 'react';
 
 export default function Header() {
-  const location = useLocation();
-  const [signInLink, setSignInLink] = useState('Sign in');
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { userName, isAuthenticated } = useSelector((state) => state.auth);
   useEffect(() => {
-    if (location.pathname === '/User') {
-      setSignInLink('Sign out');
-    } else {
-      setSignInLink('Sign in');
-    }
-  }, [location]);
+    // This will trigger a re-render when authentication status changes
+  }, [isAuthenticated]);
 
-  const removeCookie = () => {
-    if (location.pathname === '/User') {
-      store.dispatch(logout());
-    }
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/'); // Redirect to home after logging out
   };
 
   return (
@@ -29,16 +24,31 @@ export default function Header() {
         <img src={ArgentBankLogo} alt="Argent Bank Logo" />
       </Link>
       <h1 className="sr-only">Argent Bank</h1>
-      <div>
-        <Link
-          className="main-nav-item"
-          to={signInLink === 'Sign out' ? '/' : '/SignIn'}
-          onClick={signInLink === 'Sign out' ? removeCookie : undefined}
-        >
-          <i className="fa fa-user-circle"></i>
-          {signInLink}
-        </Link>
-      </div>
+      <nav className="navBar">
+        {isAuthenticated ? (
+          <>
+            <h3 className="headerUsername">{userName}</h3>
+
+            <Link className="main-nav-item" to="/">
+              <i className="fa fa-user-circle"></i>
+              Home
+            </Link>
+            <Link className="main-nav-item" to="/User">
+              <i className="fa fa-user-circle"></i>
+              Profile
+            </Link>
+            <Link className="main-nav-item" to="/" onClick={handleLogout}>
+              <i className="fa fa-user-circle"></i>
+              Sign out
+            </Link>
+          </>
+        ) : (
+          <Link className="main-nav-item" to="/SignIn">
+            <i className="fa fa-user-circle"></i>
+            Sign in
+          </Link>
+        )}
+      </nav>
     </nav>
   );
 }

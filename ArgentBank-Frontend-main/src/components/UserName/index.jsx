@@ -1,23 +1,13 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { checkAuth } from '../redux/authActions';
+import React from 'react';
+import { toggleEditForm } from '../redux/formVisibilityReducer';
+import { useDispatch } from 'react-redux';
 
-export default function UserName() {
-  const { firstName, lastName, userName, isAuthenticated } = useSelector(
-    (state) => state.auth
-  );
+export default function UserName({ firstName, lastName, userName }) {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      dispatch(checkAuth());
-    }
-  }, [dispatch, isAuthenticated]);
-
-  if (!isAuthenticated) {
-    return null; // Or a loading indicator
-  }
-
+  const handleToggleEditForm = () => {
+    dispatch(toggleEditForm()); // Dispatch toggle action
+  };
   return (
     <div className="header">
       <h1>
@@ -25,7 +15,9 @@ export default function UserName() {
         <br />
         {firstName} {lastName}!
       </h1>
-      <button className="edit-button">Edit Name</button>
+      <button className="userName-edit-icon" onClick={handleToggleEditForm}>
+        <i className="fa fa-edit"></i> Edit Username
+      </button>
     </div>
   );
 }

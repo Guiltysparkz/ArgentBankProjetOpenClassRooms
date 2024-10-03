@@ -1,43 +1,8 @@
-import React, { useState, useEffect } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
-import { login } from '../redux/authActions';
-import { useNavigate } from 'react-router-dom';
-import { store } from '../redux/store';
+import React from 'react';
 
-export default function SignInForm() {
-  // const dispatch = useDispatch();
-  // const auth = useSelector((state) => state.auth);
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const rememberedEmail = localStorage.getItem('rememberedEmail');
-    if (rememberedEmail) {
-      setEmail(rememberedEmail);
-      setRememberMe(true);
-    }
-  }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // dispatch(login({ email, password, rememberMe })).then((result) => {
-    //   if (result.meta.requestStatus === 'fulfilled') {
-    //     navigate('/User'); // Redirect to the User page after successful login
-    //   } else {
-    //     console.log('Login failed:', result.meta.requestStatus);
-    //   }
-    // });
-    store.dispatch(login(email, password, rememberMe)).then((result) => {
-      navigate('/User'); // Redirect to the User page after successful login
-    });
-  };
-
+export default function SignInForm({ email, setEmail, password, setPassword, rememberMe, setRememberMe, handleSubmit }) {
   return (
     <section className="sign-in-content" id="login">
-      {/* {auth.error && <p style={{ color: 'red' }}>{auth.error}</p>} */}
       <i className="fa fa-user-circle sign-in-icon"></i>
       <h1>
         Sign In test: tony@stark.com <br></br> password123

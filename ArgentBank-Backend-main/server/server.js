@@ -36,7 +36,7 @@ app.use(cookieParser());
 app.use(
   '/api/v1/user',
   (req, res, next) => {
-    res.set('Cache-Control', 'public, max-age=3600'); // Cache for 1 hour
+    res.set('Cache-Control', 'no-store'); // Cache for 1 hour
     next();
   },
   require('./routes/userRoutes')

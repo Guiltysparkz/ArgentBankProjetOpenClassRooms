@@ -4,6 +4,7 @@ import {
   EDIT_USERNAME,
   UPDATE_USERNAME,
   CHECK_AUTH_REQUEST,
+  CHECK_AUTH_FAILURE,
 } from './authActions';
 import { initialStates } from './initialStates';
 
@@ -21,15 +22,28 @@ export default function authReducer(state = initialStates.auth, action) {
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
         userName: action.payload.userName,
+        isLoading: false,
       };
     case CHECK_AUTH:
       return {
         ...state,
         isAuthenticated: action.payload.isAuthenticated,
-        isLoading: false,
         firstName: action.payload.firstName || null,
         lastName: action.payload.lastName || null,
         userName: action.payload.userName || null,
+        isLoading: false, // Stop loading after authentication check
+      };
+    case CHECK_AUTH_FAILURE:
+      return {
+        ...state,
+        isAuthenticated: false,
+        isLoading: false,
+        error: action.payload.error,
+      };
+    case 'END_LOADING':
+      return {
+        ...state,
+        isLoading: false, // Ensure loading ends after API request
       };
     case EDIT_USERNAME:
     case UPDATE_USERNAME:

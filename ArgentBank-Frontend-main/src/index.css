@@ -4,6 +4,13 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  height: 100%;
+}
+
+body > #root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 }
 
 body {
@@ -11,6 +18,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  height: 100%;
 }
 
 .main {
@@ -88,16 +96,21 @@ body {
   text-align: left;
   margin: 0 auto;
 }
+.hero-content > .sr-only {
+  color: black;
+}
 
 .hero-content .subtitle {
   font-weight: bold;
   font-size: 1rem;
   margin: 0;
+  color: black;
 }
 
 .hero-content .text {
   margin-bottom: 0;
   font-size: 0.9rem;
+  color: black;
 }
 
 @media (min-width: 920px) {
@@ -205,6 +218,7 @@ body {
 .footer {
   display: flex;
   justify-content: center;
+  align-items: end;
   border-top: 2px solid #ccc;
   padding: 2rem 0 1.5rem;
 }
@@ -290,23 +304,133 @@ body {
   }
 }
 
+/*additional css for editusername*/
+.editUsernameForm {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.formInputWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.formRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding-bottom: 4%;
+}
+.formRow > label {
+  width: 100%;
+  text-align: right;
+}
+.formRow > input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 167px;
+  height: 36px;
+  padding-left: 9px;
+  border-radius: 5px;
+  border-width: 1px;
+}
+#firstName,
+#lastName {
+  color: #c2c2c2;
+  background-color: #e7e7e7;
+}
+.formButtonsWrapper {
+  display: flex;
+  flex-direction: row;
+  margin-top: 27px;
+}
+.formSubmitButton {
+  height: 54px;
+  width: 167px;
+  margin-right: 2%;
+  background-color: #61b37b;
+  border: none;
+  color: white;
+  border-radius: 5px;
+}
+.formCancelButton {
+  height: 54px;
+  width: 167px;
+  background-color: #61b37b;
+  border: none;
+  color: white;
+  border-radius: 5px;
+}
+
 /*additional css for transactions*/
 /* Main container */
 .accountWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
 }
 
+.account {
+  color: white;
+  background-color: #3d3d3d;
+  border-radius: 5px;
+}
+
+.accountWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.account-content-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.account > .account-content-wrapper > a,
+h3,
+p,
+text {
+  color: white;
+  text-decoration: none;
+}
+
+.account-content-wrapper > a {
+  display: flex;
+  width: 100%;
+}
+
+.singleAccountWrapper {
+  display: flex;
+  width: 100%;
+}
+
+.accountIcon {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.accountItemDetails {
+  width: 100%;
+}
+
 /* Header section */
 .account-header {
-  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
   color: white;
   padding: 20px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   width: 100%;
 }
 
@@ -320,6 +444,8 @@ body {
 }
 
 .account-header .close-btn {
+  display: flex;
+  align-items: center;
   background-color: transparent;
   color: white;
   font-size: 2rem;
@@ -327,78 +453,176 @@ body {
   border: none;
 }
 
-/* Transactions table */
+.accountGoback {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+/* Transactions */
 .transactions {
+  width: 80%; /* Wrapper doesn't need a grid, just controls the width */
   margin-top: 20px;
-  width: 100%;
 }
 
-.transactions table {
-  width: 100%;
-  border-collapse: collapse;
+/* Grid for transaction titles */
+.transactionsTitles {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr 0.25fr; /* Align columns: Date, Description, Amount, Balance, and Toggle */
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.transactions th {
-  text-align: left;
+.transactionsTitleDate,
+.transactionsTitleDescription,
+.transactionsTitleAmount,
+.transactionsTitleBalance {
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Grid for each transaction item */
+.transaction-item {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr 0.25fr; /* Same grid structure as titles */
   padding: 10px;
-  background-color: #ddd;
+  background-color: #61b37b;
+  color: white;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  align-items: center;
 }
 
-.transactions td {
+.transaction-date,
+.transaction-description,
+.transaction-amount,
+.transaction-balance,
+.transaction-toggle {
+  text-align: center;
+}
+
+.transaction-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.transaction-toggle > button {
+  background-color: #61b37b;
+  border: 0px;
+  color: white;
+}
+
+/* Collapsible content (placed below each transaction) */
+.collapsed-content {
+  display: flex;
+  flex-direction: column;
   padding: 10px;
-  background-color: green;
+  background-color: #61b37b;
   color: white;
-  position: relative;
+  border-radius: 8px;
 }
 
-.transactions tr + tr {
-  margin-top: 10px;
-}
-
-.transaction-row {
-  background-color: green;
-  color: white;
+.collapsed-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 10px;
 }
-
-/* Expand/collapse details */
-.expand-btn {
+.collapsed-row > .value {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: transparent;
-  color: white;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
+  left: 37%;
 }
 
-.collapsed-content {
-  display: none;
-  padding: 10px;
-  background-color: #333;
+.collapsed-row > .edit-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 55%;
 }
 
-.collapsed-content.show {
-  display: block;
+.label {
+  font-weight: bold;
+  text-align: left;
 }
 
-/* Edit category and note */
+.value {
+  text-align: left;
+}
+
 .edit-icon {
-  margin-left: 10px;
+  background-color: transparent;
+  border: none;
   cursor: pointer;
+  text-align: right;
 }
 
-.select-category,
-.input-note {
-  display: none;
+.transaction-save {
+  display: flex;
+  justify-content: center;
   margin-top: 10px;
-  width: 100%;
-  padding: 5px;
+  position: relative;
+  left: 145%;
+}
+.transaction-save > button {
+  background-color: grey;
+  border: 1px;
+  color: white;
+  height: 30px;
+  width: 50px;
+  border-radius: 8px;
+}
+.select-category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #9ec7ab;
+  border: 0px;
+  font-size: medium;
+}
+.input-note {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #9ec7ab;
+  border: 0px;
+  font-size: medium;
+  text-decoration: none;
 }
 
-.select-category.show,
-.input-note.show {
-  display: block;
+/* end of transaction*/
+
+.userName-edit-icon {
+  height: 40px;
+  background-color: #61b37b;
+  border: none;
+  color: white;
+  border-radius: 5px;
+}
+/*Error page*/
+.errorPage {
+  display: flex;
+  flex-direction: column;
+}
+.errorPage > * {
+  margin-top: 8%;
+}
+/* navBar */
+.navBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-right: 7%;
+}
+.navBar > a {
+  color: #61b37b;
+}
+.headerUsername {
+  color: #61b37b;
 }

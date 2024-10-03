@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider, useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { Provider, useSelector, useDispatch } from 'react-redux';
 import {
   BrowserRouter as Router,
   Routes,
@@ -16,25 +17,49 @@ import Error from './pages/Error';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { store } from '../src/components/redux/store';
-import { useEffect } from 'react';
 import { checkAuth } from './components/redux/authActions';
 
 const ProtectedRoute = ({ element }) => {
+  const dispatch = useDispatch();
   const { isAuthenticated, isLoading } = useSelector((state) => state.auth);
-  IsAuth();
+
+  // Check authentication status on load or refresh
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
+
   if (isLoading) {
-    // Show a loading indicator or return null to wait for authentication check
-    return <div>Loading...</div>;
+    return <div>Loading...</div>; // Or a loading spinner
   }
 
   return isAuthenticated ? element : <Navigate to="/SignIn" />;
 };
-const IsAuth = () => {
+
+const App = () => {
   const dispatch = useDispatch();
 
+  // Ensure that authentication is checked once when the app loads
   useEffect(() => {
     dispatch(checkAuth());
   }, [dispatch]);
+
+  return (
+    <>
+      <Header /> {/* Shared Header */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/User" element={<ProtectedRoute element={<User />} />} />
+        <Route path="/SignIn" element={<SignIn />} />
+        <Route
+          path="/Transactions/:myCurrentAccountNumber"
+          element={<ProtectedRoute element={<Transactions />} />}
+        />
+        <Route path="*" element={<Navigate to="/Error" />} />
+        <Route path="/Error" element={<Error />} />
+      </Routes>
+      <Footer /> {/* Shared Footer */}
+    </>
+  );
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -42,19 +67,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/User" element={<ProtectedRoute element={<User />} />} />
-          <Route path="/SignIn" element={<SignIn />} />
-          <Route
-            path="/Transactions/:myCurrentAccountNumber"
-            element={<Transactions />}
-          />
-          <Route path="*" element={<Navigate to="/Error" />} />
-          <Route path="/Error" element={<Error />} />
-        </Routes>
-        <Footer />
+        <App />
       </Router>
     </Provider>
   </React.StrictMode>

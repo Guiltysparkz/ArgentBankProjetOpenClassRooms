@@ -220,7 +220,7 @@ const createAccounts = async () => {
     {
       account1: {
         accountDetails: {
-          accountNumber: 'x0001',
+          accountNumber: 'x0004',
           accountBalance: 100000,
         },
         transactions: [
@@ -273,7 +273,7 @@ const createAccounts = async () => {
       },
       account2: {
         accountDetails: {
-          accountNumber: 'x0002',
+          accountNumber: 'x0005',
           accountBalance: 200000,
         },
         transactions: [
@@ -326,7 +326,7 @@ const createAccounts = async () => {
       },
       account3: {
         accountDetails: {
-          accountNumber: 'x0003',
+          accountNumber: 'x0006',
           accountBalance: 300000,
         },
         transactions: [

@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { store } from '../../components/redux/store';
 
 export default function SignIn() {
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
@@ -21,11 +20,19 @@ export default function SignIn() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
- 
+
+    // Store email in localStorage if "Remember me" is checked
+    if (rememberMe) {
+      localStorage.setItem('rememberedEmail', email);
+    } else {
+      localStorage.removeItem('rememberedEmail'); // Remove it if unchecked
+    }
+
     store.dispatch(login(email, password, rememberMe)).then((result) => {
       navigate('/User');
     });
   };
+
   return (
     <div className="main bg-dark">
       <SignInForm

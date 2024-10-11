@@ -4,11 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import ArgentBankLogo from '../../assets/images/argentBankLogo.png';
 import { logout } from '../redux/authActions';
 import { useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser as faUserRegular } from '@fortawesome/free-regular-svg-icons'; // Regular version
+import { faPowerOff } from '@fortawesome/free-solid-svg-icons'; // Solid for power off
 
 export default function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { userName, isAuthenticated } = useSelector((state) => state.auth);
+
   useEffect(() => {
     // This will trigger a re-render when authentication status changes
   }, [isAuthenticated]);
@@ -27,24 +31,27 @@ export default function Header() {
       <nav className="navBar">
         {isAuthenticated ? (
           <>
-            <h3 className="headerUsername">{userName}</h3>
-
             <Link className="main-nav-item" to="/">
-              <i className="fa fa-user-circle"></i>
               Home
             </Link>
+            <h3 className="headerUsername">{userName}</h3>
             <Link className="main-nav-item" to="/User">
-              <i className="fa fa-user-circle"></i>
-              Profile
+              <div className="userBackground">
+                <FontAwesomeIcon
+                  icon={faUserRegular}
+                  style={{ color: 'white', height: '30px', width: '30px' }}
+                />
+              </div>
             </Link>
             <Link className="main-nav-item" to="/" onClick={handleLogout}>
-              <i className="fa fa-user-circle"></i>
-              Sign out
+              <FontAwesomeIcon
+                icon={faPowerOff}
+                style={{ color: '#61b37b', height: '50px', width: '50px' }}
+              />
             </Link>
           </>
         ) : (
           <Link className="main-nav-item" to="/SignIn">
-            <i className="fa fa-user-circle"></i>
             Sign in
           </Link>
         )}

@@ -18,7 +18,6 @@ export const getAccounts = createAsyncThunk(
       }
 
       const data = await response.json();
-      console.log('account data', data.body);
       return data.body; // Assuming accounts data is in data.body
     } catch (error) {
       return rejectWithValue(error.message);
@@ -57,15 +56,6 @@ export const updateTransactionDetails = createAsyncThunk(
 
       const data = await response.json();
 
-      // Log the success response
-      console.log('API Response:', data);
-
-      // After successful API call, dispatch to update the Redux store
-      console.log('Dispatching updateTransactionDetailsInStore with:', {
-        accountNumber,
-        transactionId,
-        updatedTransaction,
-      });
       dispatch(
         updateTransactionDetailsInStore(
           accountNumber,

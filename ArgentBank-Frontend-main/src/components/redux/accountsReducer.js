@@ -11,13 +11,6 @@ const accountsSlice = createSlice({
       const { accountNumber, transactionId, updatedTransaction } =
         action.payload;
 
-      console.log(
-        'Reducer action triggered:',
-        accountNumber,
-        transactionId,
-        updatedTransaction
-      );
-
       const account = Object.values(state.accountsData).find(
         (acc) => acc.accountDetails.accountNumber === accountNumber
       );
@@ -54,13 +47,6 @@ const accountsSlice = createSlice({
         const { accountNumber, transactionId, updatedTransaction } =
           action.payload;
 
-        console.log(
-          'Reducer action triggered - Updating transaction in the store:',
-          accountNumber,
-          transactionId,
-          updatedTransaction
-        );
-
         const account = Object.values(state.accountsData).find(
           (acc) => acc.accountDetails.accountNumber === accountNumber
         );
@@ -71,14 +57,10 @@ const accountsSlice = createSlice({
           );
 
           if (transaction) {
-            console.log('Before update:', transaction);
-
             // Update transaction details
             transaction.transactionCategory =
               updatedTransaction.transactionCategory;
             transaction.transactionNote = updatedTransaction.transactionNote;
-
-            console.log('After update:', transaction);
           }
         }
       });

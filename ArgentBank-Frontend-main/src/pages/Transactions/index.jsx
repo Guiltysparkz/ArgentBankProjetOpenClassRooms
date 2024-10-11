@@ -70,7 +70,6 @@ export default function Transactions() {
     };
 
     const accountField = determineAccountField(myCurrentAccountNumber); // Determine if it's account1, account2, or account3
-    console.log('Saving transaction with ID:', transactionId); // Log the transaction ID being sent
     // Dispatch the async thunk to update the backend and then the Redux store
     await dispatch(
       updateTransactionDetails({

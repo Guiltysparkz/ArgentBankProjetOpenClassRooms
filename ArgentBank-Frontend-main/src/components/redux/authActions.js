@@ -15,7 +15,6 @@ export const login = (email, password, rememberMe) => {
         }),
       });
       const data = await response.json();
-      console.log('login data', data);
 
       dispatch({
         type: GET_LOGIN,
@@ -48,7 +47,6 @@ export const editUsername = (userData) => {
         }
       );
       const data = await response.json();
-      console.log(data);
 
       dispatch({
         type: EDIT_USERNAME,

@@ -12,7 +12,7 @@ export default function Accounts({
     if (!accountsData) {
       dispatch(getAccounts());
     }
-  }, [dispatch, accountsData, getAccounts]);
+  }, [dispatch, accountsData, getAccounts]); //getAccounts slice to update store with accountsData
 
   if (isLoading) {
     return <div>Loading accounts...</div>;

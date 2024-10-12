@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { editUsername, updateUserName } from '../redux/authActions';
+import { editUsername } from '../redux/authActions';
 import { toggleEditForm } from '../redux/formVisibilityReducer';
+
+// Sanitize the input to remove unwanted characters
+const sanitizeInput = (input) => {
+  const sanitized = input.replace(/[<>/\\&'"]/g, ''); // Removing potential XSS characters
+  return sanitized.trim(); // Remove leading/trailing spaces
+};
 
 export default function EditUsernameForm() {
   const dispatch = useDispatch();
@@ -14,14 +20,19 @@ export default function EditUsernameForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(editUsername({ userName })).then(() => {
-      dispatch(updateUserName(userName));
+    const sanitizedUserName = sanitizeInput(userName); // Sanitize before dispatching
+    dispatch(editUsername({ userName: sanitizedUserName })).then(() => {
       dispatch(toggleEditForm());
     });
   };
 
   const handleCancel = () => {
     dispatch(toggleEditForm());
+  };
+
+  const handleInputChange = (e) => {
+    const sanitizedValue = sanitizeInput(e.target.value); // Sanitize input as the user types
+    setUserName(sanitizedValue);
   };
 
   return (
@@ -37,7 +48,7 @@ export default function EditUsernameForm() {
               name="userName"
               id="userName"
               value={userName}
-              onChange={(e) => setUserName(e.target.value)}
+              onChange={handleInputChange}
             />
           </div>
           <div className="formRow">

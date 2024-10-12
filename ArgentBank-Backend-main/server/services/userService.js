@@ -62,7 +62,6 @@ module.exports.loginUser = async (serviceData) => {
       firstName: user.firstName,
       lastName: user.lastName,
       userName: user.userName,
-      email: user.email,
     };
 
     return userData;

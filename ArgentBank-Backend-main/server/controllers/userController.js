@@ -37,16 +37,14 @@ module.exports.loginUser = async (req, res) => {
       secure: false, // Use true if HTTPS
     });
 
-    // Include userName and other details in the response
     res.status(200).send({
       status: 200,
       message: 'Login Successful',
       body: {
         id: user._id,
-        email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        userName: user.userName, // Make sure to include userName
+        userName: user.userName,
       },
     });
   } catch (error) {

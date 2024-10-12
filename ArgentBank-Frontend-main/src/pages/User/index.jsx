@@ -29,7 +29,7 @@ export default function User() {
   }
 
   if (!isAuthenticated) {
-    return null; // Or a redirect, depending on your routing logic
+    return null;
   }
 
   return (

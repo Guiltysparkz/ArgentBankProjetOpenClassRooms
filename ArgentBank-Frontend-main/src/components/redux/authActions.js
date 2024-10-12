@@ -30,7 +30,7 @@ export const login = (email, password, rememberMe) => {
   };
 };
 
-export const EDIT_USERNAME = 'EDIT_USERNAME';
+export const UPDATE_USERNAME = 'UPDATE_USERNAME';
 
 export const editUsername = (userData) => {
   return async (dispatch) => {
@@ -49,7 +49,7 @@ export const editUsername = (userData) => {
       const data = await response.json();
 
       dispatch({
-        type: EDIT_USERNAME,
+        type: UPDATE_USERNAME,
         payload: data.body.userName,
       });
     } catch (error) {
@@ -57,13 +57,6 @@ export const editUsername = (userData) => {
     }
   };
 };
-
-export const UPDATE_USERNAME = 'UPDATE_USERNAME';
-
-export const updateUserName = (userName) => ({
-  type: 'UPDATE_USERNAME',
-  payload: userName,
-});
 
 export const CHECK_AUTH = 'CHECK_AUTH';
 export const CHECK_AUTH_REQUEST = 'CHECK_AUTH_REQUEST';

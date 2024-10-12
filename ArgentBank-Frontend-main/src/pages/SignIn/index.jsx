@@ -4,6 +4,12 @@ import { login } from '../../components/redux/authActions';
 import { useNavigate } from 'react-router-dom';
 import { store } from '../../components/redux/store';
 
+// Sanitize input by removing any potential XSS characters
+const sanitizeInput = (input) => {
+  const sanitized = input.replace(/[<>/\\&'"]/g, '');
+  return sanitized.trim();
+};
+
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,16 +27,22 @@ export default function SignIn() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Sanitize inputs
+    const sanitizedEmail = sanitizeInput(email);
+    const sanitizedPassword = sanitizeInput(password);
+
     // Store email in localStorage if "Remember me" is checked
     if (rememberMe) {
-      localStorage.setItem('rememberedEmail', email);
+      localStorage.setItem('rememberedEmail', sanitizedEmail);
     } else {
       localStorage.removeItem('rememberedEmail'); // Remove it if unchecked
     }
 
-    store.dispatch(login(email, password, rememberMe)).then((result) => {
-      navigate('/User');
-    });
+    store
+      .dispatch(login(sanitizedEmail, sanitizedPassword, rememberMe))
+      .then((result) => {
+        navigate('/User');
+      });
   };
 
   return (

@@ -18,7 +18,7 @@ export const getAccounts = createAsyncThunk(
       }
 
       const data = await response.json();
-      return data.body; // Assuming accounts data is in data.body
+      return data.body;
     } catch (error) {
       return rejectWithValue(error.message);
     }
